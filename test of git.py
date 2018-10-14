@@ -16,27 +16,39 @@ def calculateH():
     for i in range(len(imageData)):
         for j in range(len(imageData[0])):
             pixel = imageData[i][j]
-            outputForHValue[i, j, 0] = pixel[0]+50
-            outputForHValue[i, j, 1] = pixel[1]+50
-            outputForHValue[i, j, 2] = pixel[2]+50
+            R = pixel[0]
+            G = pixel[1]
+            B = pixel[2]
+            hValue= 200
+            outputForHValue[i, j, 0] = hValue
+            outputForHValue[i, j, 1] = hValue
+            outputForHValue[i, j, 2] = hValue
 
 
 def calculateS():
     for i in range(len(imageData)):
         for j in range(len(imageData[0])):
             pixel = imageData[i][j]
-            outputForSValue[i, j, 0] = pixel[0]+20
-            outputForSValue[i, j, 1] = pixel[1]+20
-            outputForSValue[i, j, 2] = pixel[2]+20
+            R = pixel[0]
+            G = pixel[1]
+            B = pixel[2]
+            sValue = 255-(3*min(R, G, B))
+            outputForSValue[i, j, 0] = sValue
+            outputForSValue[i, j, 1] = sValue
+            outputForSValue[i, j, 2] = sValue
 
 
 def calculateI():
     for i in range(len(imageData)):
         for j in range(len(imageData[0])):
             pixel = imageData[i][j]
-            outputForIValue[i, j, 0] = pixel[0]+40
-            outputForIValue[i, j, 1] = pixel[1]+40
-            outputForIValue[i, j, 2] = pixel[2]+40
+            R = pixel[0]
+            G = pixel[1]
+            B = pixel[2]
+            iValue = (R+G+B)/3
+            outputForIValue[i, j, 0] = iValue
+            outputForIValue[i, j, 1] = iValue
+            outputForIValue[i, j, 2] = iValue
 
 
 calculateH()
