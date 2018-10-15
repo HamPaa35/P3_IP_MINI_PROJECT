@@ -8,8 +8,6 @@ outputForHValue = np.zeros((height, width, channels), np.uint8)
 outputForSValue = np.zeros((height, width, channels), np.uint8)
 outputForIValue = np.zeros((height, width, channels), np.uint8)
 
-cv2.imwrite('outputHValue.jpg', outputForHValue)
-
 imageData = np.asarray(image)
 
 def calculateH():
