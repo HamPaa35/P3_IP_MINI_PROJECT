@@ -58,7 +58,7 @@ def calculateS():
             B = pixel[0]
             G = pixel[1]
             R = pixel[2]
-            sValue = 255-(3*min(R, G, B))
+            sValue = 1-(3*min(R, G, B))
             outputForSValue[i, j, 0] = sValue
             outputForSValue[i, j, 1] = sValue
             outputForSValue[i, j, 2] = sValue
@@ -84,3 +84,6 @@ calculateI()
 cv2.imwrite('outputHValue.jpg', outputForHValue)
 cv2.imwrite('outputSValue.jpg', outputForSValue)
 cv2.imwrite('outputIValue.jpg', outputForIValue)
+
+#Try to implement this math http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+#If you can't ask No/Simon
