@@ -85,32 +85,31 @@ imageData = np.asarray(image)
 
 
 def calculateH(R, G, B):
-    test1 = (R - G) + (R - B)
-    if test1 > 0:
-        test1 = test1 / 2
-    else:
-        test1 = 1
-        test1 = test1 / 2
-    if test1 > 0 and math.sqrt(math.pow(R - G, 2) + (R - B) * (G - B)) > 0:
-        test1 = test1 / math.sqrt(math.pow(R - G, 2) + (R - B) * (G - B))
-    else:
-        test1 = 1
-        test1 = test1 / (math.sqrt(math.pow(R - G, 2) + (R - B) * (G - B)) + 1)
-    if test1 > 0:
-        test1 = test1 / 360
-    else:
-        test1 = 1
-        test1 = test1 / 360
+    thetaBeforeCos = 0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B)))
 
-    hAngle = math.degrees(test1)
-    hValue = hAngle
-    # if B <= G:
-    #     hValue = hAngle
-    # elif G < B:
-    #     hValue = 360 - hAngle
+    #hAngle = 0
+
+    # if thetaBeforeCos > 1:
+    #     hAngle = math.degrees(math.acos(thetaBeforeCos))
+    #
+    # elif thetaBeforeCos < -1:
+    #     hAngle = math.degrees(math.acos(thetaBeforeCos))
+    #
     # else:
-    #     hValue = 0
+    #     hAngle = math.degrees(math.acos(thetaBeforeCos))
 
+    hAngle = math.degrees(math.acos(0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B)))))
+
+    # if hAngle < 0:
+    #     hAngle *= -1
+
+    hValue = 0
+    print(hAngle)
+    if B <= G:
+        hValue = hAngle
+    else:
+        hValue = 360 - hAngle
+    print(hAngle, hValue)
     return hValue
 
     # if s == 0:
@@ -158,7 +157,7 @@ def calculateHSI():
 
             sValue = 1-((3*min(R, G, B))/(R+G+B))
             if np.isnan(sValue):
-                sValue = np.nan_to_num(sValue)
+                sValue = 127 #np.nan_to_num(sValue)
             outputForSValue[i, j, 0] = sValue*255
             outputForSValue[i, j, 1] = sValue*255
             outputForSValue[i, j, 2] = sValue*255
@@ -168,11 +167,13 @@ def calculateHSI():
             #     hValue = (hValue*60)+360
             # else:
             #     hValue = hValue*60
-            outputForHValue[i, j, 0] = hValue*255
-            outputForHValue[i, j, 1] = hValue*255
-            outputForHValue[i, j, 2] = hValue*255
+            if np.isnan(hValue):
+                hValue = 127
+            outputForHValue[i, j, 0] = (hValue/360)*255
+            outputForHValue[i, j, 1] = (hValue/360)*255
+            outputForHValue[i, j, 2] = (hValue/360)*255
 
-            print(hValue, sValue, iValue)
+            #print(hValue, sValue, iValue)
 
             outputForHSIValue[i, j, 0] = hValue
             outputForHSIValue[i, j, 1] = sValue*255
