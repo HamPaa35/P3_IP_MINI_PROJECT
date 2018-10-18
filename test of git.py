@@ -3,13 +3,13 @@ import math
 import numpy as np
 import cv2
 
-image = cv2.imread("flowers.jpg")
+image = cv2.imread("Hue2.jpg")
 height, width,  channels = image.shape
 
-outputForHValue = np.zeros((height, width, channels), np.uint8)
-outputForSValue = np.zeros((height, width, channels), np.uint8)
-outputForIValue = np.zeros((height, width, channels), np.uint8)
-outputForHSIValue = np.zeros((height, width, channels), np.uint8)
+outputForHValue = np.zeros((height, width, channels), np.uint64)
+outputForSValue = np.zeros((height, width, channels), np.uint64)
+outputForIValue = np.zeros((height, width, channels), np.uint64)
+outputForHSIValue = np.zeros((height, width, channels), np.uint64)
 
 imageData = np.asarray(image)
 
@@ -85,7 +85,7 @@ imageData = np.asarray(image)
 
 
 def calculateH(R, G, B):
-    thetaBeforeCos = 0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B)))
+    thetaBeforeCos = (0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B))))
 
     #hAngle = 0
 
@@ -104,7 +104,6 @@ def calculateH(R, G, B):
     #     hAngle *= -1
 
     hValue = 0
-    print(hAngle)
     if B <= G:
         hValue = hAngle
     else:
@@ -155,9 +154,9 @@ def calculateHSI():
             outputForIValue[i, j, 1] = iValue*255
             outputForIValue[i, j, 2] = iValue*255
 
-            sValue = 1-((3*min(R, G, B))/(R+G+B))
+            sValue = 1-(3*((min(R, G, B))/(R+G+B)))
             if np.isnan(sValue):
-                sValue = 127 #np.nan_to_num(sValue)
+                sValue = 0 #np.nan_to_num(sValue)
             outputForSValue[i, j, 0] = sValue*255
             outputForSValue[i, j, 1] = sValue*255
             outputForSValue[i, j, 2] = sValue*255
@@ -168,14 +167,14 @@ def calculateHSI():
             # else:
             #     hValue = hValue*60
             if np.isnan(hValue):
-                hValue = 127
+                hValue = 0
             outputForHValue[i, j, 0] = (hValue/360)*255
             outputForHValue[i, j, 1] = (hValue/360)*255
             outputForHValue[i, j, 2] = (hValue/360)*255
 
             #print(hValue, sValue, iValue)
 
-            outputForHSIValue[i, j, 0] = hValue
+            outputForHSIValue[i, j, 0] = (hValue/360)*255
             outputForHSIValue[i, j, 1] = sValue*255
             outputForHSIValue[i, j, 2] = iValue*255
 
@@ -189,3 +188,4 @@ cv2.imwrite('outputHSIValue.jpg', outputForHSIValue)
 print('The code got to here')
 
 #Try to implement this math http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+# Some problems may be the fact that it does not work with pure balck and white
