@@ -3,7 +3,7 @@ import math
 import numpy as np
 import cv2
 
-image = cv2.imread("Hue2.jpg")
+image = cv2.imread("flowers.jpg")
 height, width,  channels = image.shape
 
 outputForHValue = np.zeros((height, width, channels), np.uint64)
@@ -85,7 +85,7 @@ imageData = np.asarray(image)
 
 
 def calculateH(R, G, B):
-    thetaBeforeCos = (0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B))))
+    #thetaBeforeCos = (0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B))))
 
     #hAngle = 0
 
@@ -98,18 +98,23 @@ def calculateH(R, G, B):
     # else:
     #     hAngle = math.degrees(math.acos(thetaBeforeCos))
 
-    hAngle = math.degrees(math.acos(0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B)))))
+    #if R<0 and G<0 and B<0 or R>1 and G>1 and B>1:
+    #    return 0
+    #else:
+        try:
+            hAngle = math.degrees(math.acos(0.5 * (((R - G) + (R - B)) / math.sqrt((R-G)*(R-G) + (R - B) * (G - B)))))
+        except:
+            hAngle = 0
+        # if hAngle < 0:
+        #     hAngle *= -1
 
-    # if hAngle < 0:
-    #     hAngle *= -1
-
-    hValue = 0
-    if B <= G:
-        hValue = hAngle
-    else:
-        hValue = 360 - hAngle
-    print(hAngle, hValue)
-    return hValue
+        hValue = 0
+        if B <= G:
+            hValue = hAngle
+        else:
+            hValue = 360 - hAngle
+        print(hAngle, hValue)
+        return hValue
 
     # if s == 0:
     #     return 0
@@ -145,29 +150,34 @@ def calculateHSI():
     for i in range(len(imageData)):
         for j in range(len(imageData[0])):
             pixel = imageData[i][j]
-            B = pixel[0]/255
-            G = pixel[1]/255
-            R = pixel[2]/255
+            B = float(pixel[0]/255)
+            G = float(pixel[1]/255)
+            R = float(pixel[2]/255)
 
-            iValue = (R+G+B)/3
+            iValue = (R+G+B)/3.0
             outputForIValue[i, j, 0] = iValue*255
             outputForIValue[i, j, 1] = iValue*255
             outputForIValue[i, j, 2] = iValue*255
 
-            sValue = 1-(3*((min(R, G, B))/(R+G+B)))
-            if np.isnan(sValue):
-                sValue = 0 #np.nan_to_num(sValue)
+            try:
+                sValue = 1.0-(3.0*((min(R, G, B))/(R+G+B)))
+            except:
+                sValue = 0
+            print(sValue)
             outputForSValue[i, j, 0] = sValue*255
             outputForSValue[i, j, 1] = sValue*255
             outputForSValue[i, j, 2] = sValue*255
 
-            hValue = calculateH(R, G, B)
+            try:
+                hValue = calculateH(R, G, B)
+            except:
+                hValue=0
             # if hValue < 0:
             #     hValue = (hValue*60)+360
             # else:
             #     hValue = hValue*60
-            if np.isnan(hValue):
-                hValue = 0
+            #if np.isnan(hValue):
+            #    hValue = 0
             outputForHValue[i, j, 0] = (hValue/360)*255
             outputForHValue[i, j, 1] = (hValue/360)*255
             outputForHValue[i, j, 2] = (hValue/360)*255
