@@ -88,7 +88,7 @@ def calculateHSIBook():
 # The main function is called
 calculateHSIBook()
 
-# The the previously blank images are saved to the hard drive and can now be view outside this programme
+# The the previously blank images are saved to the hard drive and can now be view outside this program
 cv2.imwrite('outputHValueBook.jpg', outputForHValueBook)
 cv2.imwrite('outputSValueBook.jpg', outputForSValueBook)
 cv2.imwrite('outputIValueBook.jpg', outputForIValueBook)

@@ -141,7 +141,7 @@ def calculateHSIWeb():
 # The main function is called
 calculateHSIWeb()
 
-# The the previously blank images are saved to the hard drive and can now be view outside this programme
+# The the previously blank images are saved to the hard drive and can now be view outside this program
 cv2.imwrite('outputHValueWeb.jpg', outputForHValueWeb)
 cv2.imwrite('outputSValueWeb.jpg', outputForSValueWeb)
 cv2.imwrite('outputIValueWeb.jpg', outputForIValueWeb)
