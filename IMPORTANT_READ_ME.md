@@ -1,5 +1,7 @@
 # P3_IP_MINI_PROJECT
 
+Program needs interpreter with opencv-python and numpy to run
+
 IMPORTANT:
 The files with Book in the title are the main focus of the mini-project.
 The files with Web in the title is included mostly for discussion.
