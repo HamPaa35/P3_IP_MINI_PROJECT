@@ -1,9 +1,18 @@
+# The code and outputs with Book in the title is made and designed from the theory presented in:
+# Introduction to Video and Image Processing by Thomas B. Moeslund.
+# The equations used can be found in chapter 3.3.1 on page 36, and it has a deeper explanation in Appendix D.
+# The code and outputs with Book in the title are the main focus of this mini project,
+# for more on this see the mini project report.
+
 import math
 import numpy as np
 import cv2
 
 # This code converts RGB to HSI using the method and math discussed in the IP book:
-# Introduction to Video and Image Processing by Thomas B. Moeslund, Appendix D: Conversion Between RGB and HSI
+# Introduction to Video and Image Processing by Thomas B. Moeslund, chapter 3.3.1 and
+# Appendix D: Conversion Between RGB and HSI
+
+# This code is the main focus of this mine-project
 
 # Here the code imports the image that the algorithm will use.
 image = cv2.imread("flowers.jpg")

@@ -1,10 +1,15 @@
+# The code and outputs with Web in the title is only adapted by me, and are not designed by me.
+# The source code can be found here:
+# https://www.codeproject.com/Articles/8174/Class-to-calculate-HSI-Hue-Saturation-Intensity
+# This code and its outputs are used in the report to discuss the flaws in my program, see the report for more on this.
+
 import numpy as np
 import cv2
 
 # This code converts RGB to HSI using the method and math discussed on the web page:
 # https://www.codeproject.com/Articles/8174/Class-to-calculate-HSI-Hue-Saturation-Intensity Found 17/10 - 2018
 
-# This code is included because it is more efficient than the method from the book, but not af accurate.
+# This code is included because it is more efficient than the method from the book, but not as accurate.
 
 # Here the code imports the image that the algorithm will use.
 image = cv2.imread("flowers.jpg")
@@ -19,7 +24,6 @@ outputForHSIValueWeb = np.zeros((height, width, channels), np.uint64)
 
 # The data from the imported image is stored in a numpy array
 imageData = np.asarray(image)
-
 
 # This function calculates the Hue in the HSI color space
 def calculateHWeb(R, G, B, max, dif, sValue):
