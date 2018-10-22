@@ -105,6 +105,3 @@ cv2.imwrite('outputHSIValueBook.jpg', outputForHSIValueBook)
 
 # Simple debug message
 print('The code from the book completed')
-
-# Try to implement this math http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
-# Some problems may be the fact that it does not work with pure black and white
